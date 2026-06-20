@@ -15,7 +15,6 @@ function App() {
   const [selectedStyle, setSelectedStyle] = useState('Modern');
   const [palette, setPalette] = useState(null);
 
-  // Auto-generate default palette on first load
   useEffect(() => {
     const initialPalette = generatePalette('SaaS', 'Modern');
     setPalette(initialPalette);
@@ -34,34 +33,58 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background relative overflow-x-hidden selection:bg-primary/20 selection:text-primary">
-      {/* Subtle Premium Background Mesh */}
-      <div className="absolute top-0 inset-x-0 h-[800px] bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(37,99,235,0.06),rgba(255,255,255,0))] pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-[radial-gradient(ellipse_50%_50%_at_80%_20%,rgba(124,58,237,0.04),rgba(255,255,255,0))] pointer-events-none"></div>
+    /* ── Full-page dark canvas ── */
+    <div className="min-h-screen flex flex-col bg-[#0B1220] relative overflow-x-hidden selection:bg-primary/20 selection:text-primary font-sans">
       
-      <Navbar />
+      {/* Ambient glow layer — spans full page at very low opacity */}
+      <div className="fixed inset-0 pointer-events-none z-0"
+           style={{
+             background: [
+               'radial-gradient(ellipse 70% 50% at 15% 20%, rgba(37,99,235,0.12) 0%, transparent 60%)',
+               'radial-gradient(ellipse 60% 50% at 85% 30%, rgba(124,58,237,0.08) 0%, transparent 55%)',
+               'radial-gradient(ellipse 50% 40% at 50% 80%, rgba(37,99,235,0.05) 0%, transparent 60%)',
+             ].join(',')
+           }}
+      ></div>
 
-      <main className="flex-1 relative z-10">
+      <div className="relative z-10 flex-1 flex flex-col">
+        <Navbar />
+
         <Hero />
         
-        <GeneratorCard 
-          selectedIndustry={selectedIndustry}
-          setSelectedIndustry={setSelectedIndustry}
-          selectedStyle={selectedStyle}
-          setSelectedStyle={setSelectedStyle}
-          onGenerate={handleGenerate}
-          onShuffle={handleShuffle}
-        />
+        {/* ── Workspace Card — floats above dark canvas ── */}
+        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-20 -mt-20 mb-10">
+          <div className="bg-white rounded-[32px] border border-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_32px_64px_-16px_rgba(0,0,0,0.5)] p-6 md:p-12 flex flex-col gap-12 sm:gap-16">
+            
+            <GeneratorCard 
+              selectedIndustry={selectedIndustry}
+              setSelectedIndustry={setSelectedIndustry}
+              selectedStyle={selectedStyle}
+              setSelectedStyle={setSelectedStyle}
+              onGenerate={handleGenerate}
+              onShuffle={handleShuffle}
+            />
 
+            {palette && (
+              <>
+                <div className="h-px w-full bg-slate-100"></div>
+                <PaletteResults palette={palette} />
+                <div className="h-px w-full bg-slate-100"></div>
+                <AccessibilitySection palette={palette} />
+                <div className="h-px w-full bg-slate-100"></div>
+                <ExportSection palette={palette} />
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* ── Preview Card — also floats above dark canvas ── */}
         {palette && (
-          <div className="flex flex-col gap-8">
-            <PaletteResults palette={palette} />
-            <AccessibilitySection palette={palette} />
+          <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-10">
             <PreviewSection palette={palette} />
-            <ExportSection palette={palette} />
           </div>
         )}
-      </main>
+      </div>
 
       <Footer />
     </div>

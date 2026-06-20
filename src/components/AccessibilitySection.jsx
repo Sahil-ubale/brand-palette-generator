@@ -37,10 +37,9 @@ export default function AccessibilitySection({ palette }) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-20 animate-slide-up">
-      <div className="glass-card p-6 sm:p-10">
-        <div className="flex items-center space-x-2 mb-8">
-          <h3 className="text-xl font-extrabold text-slate-800 tracking-tight">Accessibility Check</h3>
+    <div className="animate-slide-up">
+      <div className="flex items-center space-x-2 mb-6">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Accessibility</h2>
           <div className="group relative">
             <Info className="w-5 h-5 text-slate-400 cursor-help" />
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-slate-900 text-white text-xs p-3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
@@ -49,30 +48,29 @@ export default function AccessibilitySection({ palette }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/60 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.02)] flex justify-between items-center transition-transform hover:-translate-y-0.5 duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center transition-all hover:-translate-y-0.5 duration-300 group">
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Primary : Background</p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Primary · Background</p>
               <div className="flex items-baseline space-x-1">
                 <span className="text-4xl font-extrabold text-slate-800 tracking-tight">{primaryBgContrast}</span>
-                <span className="text-lg font-bold text-slate-400">:1</span>
+                <span className="text-lg font-bold text-slate-300">:1</span>
               </div>
             </div>
             <div>{renderBadge(primaryEval)}</div>
           </div>
 
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/60 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.02)] flex justify-between items-center transition-transform hover:-translate-y-0.5 duration-300">
+          <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center transition-all hover:-translate-y-0.5 duration-300 group">
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Text : Background</p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Text · Background</p>
               <div className="flex items-baseline space-x-1">
                 <span className="text-4xl font-extrabold text-slate-800 tracking-tight">{textBgContrast}</span>
-                <span className="text-lg font-bold text-slate-400">:1</span>
+                <span className="text-lg font-bold text-slate-300">:1</span>
               </div>
             </div>
             <div>{renderBadge(textEval)}</div>
           </div>
         </div>
-      </div>
     </div>
   );
 }

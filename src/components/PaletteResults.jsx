@@ -51,8 +51,9 @@ export default function PaletteResults({ palette }) {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-12 relative">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 animate-fade-in">
+    <div className="relative">
+      <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Color Palette</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 animate-fade-in">
         {roles.map(({ key, label }) => (
           <PaletteCard 
             key={key} 
@@ -64,9 +65,9 @@ export default function PaletteResults({ palette }) {
       </div>
 
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 bg-gray-900 text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-2 animate-slide-up z-50">
-          <Check className="w-5 h-5 text-green-400" />
-          <span className="font-medium">{toastMessage}</span>
+        <div className="fixed bottom-6 right-6 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-lg flex items-center space-x-2 animate-slide-up z-50 border border-slate-700/50">
+          <Check className="w-4 h-4 text-emerald-400" />
+          <span className="font-semibold text-sm">{toastMessage}</span>
         </div>
       )}
     </div>

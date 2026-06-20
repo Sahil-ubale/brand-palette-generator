@@ -40,11 +40,10 @@ function CustomSelect({ label, options, value, onChange }) {
                     onChange(option);
                     setIsOpen(false);
                   }}
-                  className={`w-full text-left flex items-center justify-between px-4 py-3 rounded-[14px] transition-colors mb-1 last:mb-0 ${
-                    value === option 
-                      ? 'bg-primary/5 text-primary font-bold' 
+                  className={`w-full text-left flex items-center justify-between px-4 py-3 rounded-[14px] transition-colors mb-1 last:mb-0 ${value === option
+                      ? 'bg-primary/5 text-primary font-bold'
                       : 'text-slate-700 font-medium hover:bg-slate-50'
-                  }`}
+                    }`}
                   style={{ minHeight: '44px' }}
                 >
                   <span>{option}</span>
@@ -59,51 +58,50 @@ function CustomSelect({ label, options, value, onChange }) {
   );
 }
 
-export default function GeneratorCard({ 
-  selectedIndustry, 
-  setSelectedIndustry, 
-  selectedStyle, 
-  setSelectedStyle, 
-  onGenerate, 
-  onShuffle 
+export default function GeneratorCard({
+  selectedIndustry,
+  setSelectedIndustry,
+  selectedStyle,
+  setSelectedStyle,
+  onGenerate,
+  onShuffle
 }) {
   return (
-    <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-16 relative z-20">
-      <div className="glass-card p-6 md:p-8 animate-slide-up">
-        
+    <div className="relative z-20">
+      <div className="mb-1">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Configure</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
-          <CustomSelect 
-            label="Industry" 
-            options={industries} 
-            value={selectedIndustry} 
-            onChange={setSelectedIndustry} 
+          <CustomSelect
+            label="Industry"
+            options={industries}
+            value={selectedIndustry}
+            onChange={setSelectedIndustry}
           />
-          <CustomSelect 
-            label="Brand Style" 
-            options={styles} 
-            value={selectedStyle} 
-            onChange={setSelectedStyle} 
+          <CustomSelect
+            label="Brand Style"
+            options={styles}
+            value={selectedStyle}
+            onChange={setSelectedStyle}
           />
-        </div>
-        
-        <div className="flex flex-col gap-3">
-          <button
-            onClick={onGenerate}
-            className="w-full flex items-center justify-center space-x-2 bg-primary hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <Settings2 className="w-5 h-5" />
-            <span>Generate Palette</span>
-          </button>
-          
-          <button
-            onClick={onShuffle}
-            className="w-full flex items-center justify-center space-x-2 bg-white/50 hover:bg-white/80 border border-slate-200/80 text-slate-600 hover:text-slate-900 font-semibold py-3.5 px-6 rounded-2xl transition-all hover:shadow-sm active:translate-y-0"
-          >
-            <RefreshCcw className="w-4 h-4" />
-            <span>Shuffle Palette</span>
-          </button>
         </div>
 
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={onGenerate}
+            className="flex-1 flex items-center justify-center space-x-2 bg-primary hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all  hover:shadow-[0_6px_20px_rgba(37,99,235,0.2)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99]"
+          >
+            <Settings2 className="w-4.5 h-4.5" />
+            <span>Generate Palette</span>
+          </button>
+
+          <button
+            onClick={onShuffle}
+            className="flex-1 flex items-center justify-center space-x-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 font-semibold py-4 px-6 rounded-2xl transition-all active:scale-[0.99]"
+          >
+            <RefreshCcw className="w-4 h-4" />
+            <span>Shuffle</span>
+          </button>
+        </div>
       </div>
     </div>
   );
