@@ -34,9 +34,10 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAFA] relative overflow-x-hidden selection:bg-gray-200 selection:text-gray-900">
+    <div className="min-h-screen flex flex-col bg-background relative overflow-x-hidden selection:bg-primary/20 selection:text-primary">
       {/* Subtle Premium Background Mesh */}
-      <div className="absolute top-0 inset-x-0 h-[800px] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.08),rgba(255,255,255,0))] pointer-events-none"></div>
+      <div className="absolute top-0 inset-x-0 h-[800px] bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(37,99,235,0.06),rgba(255,255,255,0))] pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-[radial-gradient(ellipse_50%_50%_at_80%_20%,rgba(124,58,237,0.04),rgba(255,255,255,0))] pointer-events-none"></div>
       
       <Navbar />
 

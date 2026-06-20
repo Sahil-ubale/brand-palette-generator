@@ -1,6 +1,63 @@
-import React from 'react';
-import { RefreshCcw, Settings2 } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { RefreshCcw, Settings2, ChevronDown, Check } from 'lucide-react';
 import { industries, styles } from '../data/palettes';
+
+function CustomSelect({ label, options, value, onChange }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="space-y-2" ref={containerRef}>
+      <label className="block text-xs font-bold text-slate-500 tracking-wide uppercase px-1">{label}</label>
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-full flex items-center justify-between bg-white/60 hover:bg-white/90 border ${isOpen ? 'border-primary ring-4 ring-primary/10' : 'border-slate-200/80'} text-slate-800 text-base font-semibold rounded-[20px] p-4 transition-all shadow-sm outline-none`}
+        >
+          <span>{value}</span>
+          <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-primary' : ''}`} />
+        </button>
+
+        {isOpen && (
+          <div className="absolute z-50 w-full mt-2 bg-white/90 backdrop-blur-xl border border-slate-200/80 rounded-[20px] shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] overflow-hidden animate-fade-in origin-top">
+            <div className="max-h-64 overflow-y-auto custom-scrollbar p-1.5">
+              {options.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => {
+                    onChange(option);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full text-left flex items-center justify-between px-4 py-3 rounded-[14px] transition-colors mb-1 last:mb-0 ${
+                    value === option 
+                      ? 'bg-primary/5 text-primary font-bold' 
+                      : 'text-slate-700 font-medium hover:bg-slate-50'
+                  }`}
+                  style={{ minHeight: '44px' }}
+                >
+                  <span>{option}</span>
+                  {value === option && <Check className="w-4 h-4 text-primary" />}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function GeneratorCard({ 
   selectedIndustry, 
@@ -11,65 +68,42 @@ export default function GeneratorCard({
   onShuffle 
 }) {
   return (
-    <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-12">
+    <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-16 relative z-20">
       <div className="glass-card p-6 md:p-8 animate-slide-up">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-700">Industry</label>
-            <div className="relative">
-              <select
-                value={selectedIndustry}
-                onChange={(e) => setSelectedIndustry(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-accent focus:border-accent block p-3 appearance-none transition-colors"
-              >
-                {industries.map(ind => (
-                  <option key={ind} value={ind}>{ind}</option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-700">Brand Style</label>
-            <div className="relative">
-              <select
-                value={selectedStyle}
-                onChange={(e) => setSelectedStyle(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-accent focus:border-accent block p-3 appearance-none transition-colors"
-              >
-                {styles.map(st => (
-                  <option key={st} value={st}>{st}</option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-          </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+          <CustomSelect 
+            label="Industry" 
+            options={industries} 
+            value={selectedIndustry} 
+            onChange={setSelectedIndustry} 
+          />
+          <CustomSelect 
+            label="Brand Style" 
+            options={styles} 
+            value={selectedStyle} 
+            onChange={setSelectedStyle} 
+          />
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col gap-3">
           <button
             onClick={onGenerate}
-            className="flex-1 flex items-center justify-center space-x-2 bg-gray-900 hover:bg-gray-800 text-white font-medium py-3 px-6 rounded-xl transition-all shadow-sm active:scale-[0.98]"
+            className="w-full flex items-center justify-center space-x-2 bg-primary hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 active:translate-y-0"
           >
             <Settings2 className="w-5 h-5" />
             <span>Generate Palette</span>
           </button>
+          
           <button
             onClick={onShuffle}
-            className="flex-1 flex items-center justify-center space-x-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 font-medium py-3 px-6 rounded-xl transition-all shadow-sm active:scale-[0.98]"
+            className="w-full flex items-center justify-center space-x-2 bg-white/50 hover:bg-white/80 border border-slate-200/80 text-slate-600 hover:text-slate-900 font-semibold py-3.5 px-6 rounded-2xl transition-all hover:shadow-sm active:translate-y-0"
           >
-            <RefreshCcw className="w-5 h-5" />
+            <RefreshCcw className="w-4 h-4" />
             <span>Shuffle Palette</span>
           </button>
         </div>
+
       </div>
     </div>
   );

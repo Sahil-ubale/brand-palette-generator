@@ -12,20 +12,20 @@ function PaletteCard({ role, hex, onCopy }) {
   };
 
   return (
-    <div className="flex flex-col glass-card overflow-hidden group hover:shadow-md transition-shadow">
+    <div className="flex flex-col bg-white/80 backdrop-blur-md rounded-3xl border border-slate-200/60 shadow-sm overflow-hidden group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
       <div 
-        className="h-32 w-full transition-transform group-hover:scale-105 origin-bottom" 
+        className="h-36 w-full transition-transform duration-500 group-hover:scale-105 origin-bottom" 
         style={{ backgroundColor: hex }}
       ></div>
-      <div className="p-4 bg-white flex flex-col items-center relative z-10">
-        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">{role}</span>
-        <span className="text-gray-900 font-mono font-medium mb-3">{hex}</span>
+      <div className="p-5 bg-white flex flex-col items-center relative z-10">
+        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">{role}</span>
+        <span className="text-slate-800 font-mono font-semibold tracking-wide mb-4">{hex}</span>
         <button
           onClick={handleCopy}
-          className="flex items-center justify-center space-x-1.5 w-full py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium rounded-lg transition-colors"
+          className="flex items-center justify-center space-x-1.5 w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl transition-colors border border-slate-100"
         >
-          {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-          <span>{copied ? 'Copied' : 'Copy HEX'}</span>
+          {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-slate-400" />}
+          <span>{copied ? 'Copied' : 'Copy'}</span>
         </button>
       </div>
     </div>

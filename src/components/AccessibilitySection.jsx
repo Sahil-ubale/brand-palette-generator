@@ -14,57 +14,59 @@ export default function AccessibilitySection({ palette }) {
   const renderBadge = (evaluation) => {
     if (evaluation.status === 'AAA Passed') {
       return (
-        <span className="inline-flex items-center space-x-1 bg-green-50 text-green-700 px-2.5 py-1 rounded-md text-xs font-semibold border border-green-200">
+        <span className="inline-flex items-center space-x-1.5 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide border border-emerald-200/60 shadow-sm">
           <CheckCircle2 className="w-3.5 h-3.5" />
-          <span>AAA Passed</span>
+          <span>AAA PASS</span>
         </span>
       );
     }
     if (evaluation.status === 'AA Passed') {
       return (
-        <span className="inline-flex items-center space-x-1 bg-blue-50 text-blue-700 px-2.5 py-1 rounded-md text-xs font-semibold border border-blue-200">
+        <span className="inline-flex items-center space-x-1.5 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide border border-blue-200/60 shadow-sm">
           <CheckCircle2 className="w-3.5 h-3.5" />
-          <span>AA Passed</span>
+          <span>AA PASS</span>
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center space-x-1 bg-orange-50 text-orange-700 px-2.5 py-1 rounded-md text-xs font-semibold border border-orange-200">
+      <span className="inline-flex items-center space-x-1.5 bg-amber-50 text-amber-700 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide border border-amber-200/60 shadow-sm">
         <AlertTriangle className="w-3.5 h-3.5" />
-        <span>Needs Improvement</span>
+        <span>IMPROVE</span>
       </span>
     );
   };
 
   return (
     <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-20 animate-slide-up">
-      <div className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8 shadow-sm">
-        <div className="flex items-center space-x-2 mb-6">
-          <h3 className="text-xl font-bold text-gray-900">Accessibility Validation</h3>
+      <div className="glass-card p-6 sm:p-10">
+        <div className="flex items-center space-x-2 mb-8">
+          <h3 className="text-xl font-extrabold text-slate-800 tracking-tight">Accessibility Check</h3>
           <div className="group relative">
-            <Info className="w-5 h-5 text-gray-400 cursor-help" />
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-gray-900 text-white text-xs p-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+            <Info className="w-5 h-5 text-slate-400 cursor-help" />
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-slate-900 text-white text-xs p-3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
               WCAG 2.1 requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text.
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-5 rounded-xl bg-gray-50 border border-gray-100 flex justify-between items-center">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/60 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.02)] flex justify-between items-center transition-transform hover:-translate-y-0.5 duration-300">
             <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Primary vs Background</p>
-              <div className="flex items-end space-x-2">
-                <span className="text-3xl font-bold text-gray-900">{primaryBgContrast}:1</span>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Primary : Background</p>
+              <div className="flex items-baseline space-x-1">
+                <span className="text-4xl font-extrabold text-slate-800 tracking-tight">{primaryBgContrast}</span>
+                <span className="text-lg font-bold text-slate-400">:1</span>
               </div>
             </div>
             <div>{renderBadge(primaryEval)}</div>
           </div>
 
-          <div className="p-5 rounded-xl bg-gray-50 border border-gray-100 flex justify-between items-center">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/60 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.02)] flex justify-between items-center transition-transform hover:-translate-y-0.5 duration-300">
             <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Text vs Background</p>
-              <div className="flex items-end space-x-2">
-                <span className="text-3xl font-bold text-gray-900">{textBgContrast}:1</span>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Text : Background</p>
+              <div className="flex items-baseline space-x-1">
+                <span className="text-4xl font-extrabold text-slate-800 tracking-tight">{textBgContrast}</span>
+                <span className="text-lg font-bold text-slate-400">:1</span>
               </div>
             </div>
             <div>{renderBadge(textEval)}</div>
